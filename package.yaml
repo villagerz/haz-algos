@@ -29,6 +29,7 @@ ghc-options: -Wall
 library:
   dependencies:
   - base
+  - array
   source-dirs: library
 
 executables:
