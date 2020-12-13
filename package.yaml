@@ -64,8 +64,7 @@ tests:
     dependencies:
     - base
     - haz-algos
-    - tasty
-    - tasty-hspec
+    - hspec
     ghc-options:
     - -rtsopts
     - -threaded

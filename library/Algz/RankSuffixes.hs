@@ -9,7 +9,7 @@ tails xs = xs : tails (tail xs)
 
 -- | rank basic specification
 rank ∷ Ord a ⇒ [a] → [Int]
-rank xs = map (\x → length (filter (< x) xs)) xs
+rank = resort ∘ concat ∘ label ∘ psort ∘ zip [0..]
 
 
 
@@ -47,11 +47,16 @@ shiftBy k xs = (map (+k) (drop k xs) ) ++ [k-1, k-2 .. 0]
 psort ∷ Ord b ⇒ [(a,b)] → [[a]]
 psort xys = pass xys []
  where pass [] xss = xss
-       pass (e@(x,y):xys') xss = step xys' [] [x] [] xss
+       pass ((x,y):xys') xss = step xys' [] [x] [] xss
          where step [] as bs cs xss' = pass as (bs : pass cs xss')
-               step (e@(x,y'):xys'') as bs cs xss'
+               step (e@(_,y'):xys'') as bs cs xss'
                  | y' < y = step xys'' (e:as) bs cs xss'
                  | y' ≡ y = step xys'' as (x:bs) cs xss'
                  | y' > y = step xys'' as bs (e:cs) xss'
 
+resort ∷ [(Int, Int)] → [Int]
+resort = (⊥)
+
+label ∷ [[a]] → [[(a,Int)]]
+label = (⊥)
 
