@@ -5,13 +5,18 @@ import           Prelude.Unicode ((∘), (∧), (≡), (≢), (≤), (≥), (⊥
 
 -- | Short segment, of max length n, that has max sum
 mss ∷ Int → [Integer] → [Integer]
-mss n  = maxWith sum ∘ map (msp n) ∘ tails
+mss n  = maxWith sum ∘ map last ∘ scanr (op n) [[]]
+
 
 -- | Short segment, of max length n, that is a prefix and is max sum
 msp ∷ Int → [Integer] → [Integer]
-msp n = maxWith sum ∘ thinBy maxSumPreorder ∘ foldr (op n) [[]]
-  where op b x xss = [] : map (x:) (cut b xss)
-        cut l yss = if length (last yss) ≡ l then (init yss) else yss
+msp n = last ∘ foldr (op n) [[]]
+
+op ∷ Int → Integer → [[Integer]] → [[Integer]]
+op b x xss = [] : thin (map (x:) (cut b xss))
+  where cut l yss = if length (last yss) ≡ l then (init yss) else yss
+        thin  = dropWhile (\xs → sum xs ≤ 0)
+
 
 short ∷ Int → [a] → Bool
 short b xs = (length xs) ≤ b
