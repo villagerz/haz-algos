@@ -52,6 +52,7 @@ benchmarks:
     - base
     - haz-algos
     - criterion
+    - random
     ghc-options:
     - -rtsopts
     - -threaded

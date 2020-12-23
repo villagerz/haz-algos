@@ -1,12 +1,18 @@
 -- | From Chapter 11 "Segments and Subsequences", Algorithm Design with Haskell
-module Algz.Segments where
+module Algz.Segments (mss, maxSumPreorder, msp, thinBy)  where
 import           Data.List       (foldr1, inits, tails)
 import           Prelude.Unicode ((∘), (∧), (≡), (≢), (≤), (≥), (⊥))
 
 -- | Short segment, of max length n, that has max sum
 mss ∷ Int → [Integer] → [Integer]
-mss n  = maxWith sum ∘ map last ∘ scanr (op n) [[]]
-
+mss n  = maxWith sum ∘ map concat ∘ scanr (opR n) []
+  where opR b x xss = thinR x (cutR b xss)
+        cutR m xss = if length (concat xss) ≡ m then init xss else xss
+        thinR x xss = add [x] xss
+          where add xs xss
+                  | sum xs > 0 = xs : xss
+                  | null xss = []
+                  | otherwise = add (xs ++ head xss) (tail xss)
 
 -- | Short segment, of max length n, that is a prefix and is max sum
 msp ∷ Int → [Integer] → [Integer]
