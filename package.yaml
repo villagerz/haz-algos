@@ -30,6 +30,7 @@ library:
   dependencies:
   - base
   - array
+  - containers
   source-dirs: library
 
 executables:

@@ -24,7 +24,7 @@ main = do
   print ten
   print (take 10 hunsies)
   defaultMain [
-    bgroup "non-tupled-" [bench "5,10" $ whnf (mss 5) ten
+    bgroup "tupled-" [bench "5,10" $ whnf (mss 5) ten
                          ,bench "5,100" $ whnf (mss 5) hunsies
                          ,bench "5,1000" $ whnf (mss 5) thou
                          ,bench "half,10" $ whnf (mss 5) ten
