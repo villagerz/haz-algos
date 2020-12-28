@@ -20,9 +20,6 @@ main = do
   let ten = randomlist 10 seed
   let hunsies = randomlist 100 seed
   let thou = randomlist 1000 seed
-  print ten'
-  print ten
-  print (take 10 hunsies)
   defaultMain [
     bgroup "tupled-" [bench "5,10" $ whnf (mss 5) ten
                          ,bench "5,100" $ whnf (mss 5) hunsies
