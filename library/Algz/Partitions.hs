@@ -2,6 +2,14 @@
 module Algz.Partitions (parts)  where
 import           Prelude.Unicode ((∘), (∧), (≡), (≢), (≤), (≥), (⊥))
 
-parts ∷ [a] → [[[Char]]]
+type Segment a = [a]
+type Partition a = [Segment a]
+
+parts ∷ [a] → [Partition a]
 parts [] = [[[]]]
-parts _  = [["a","b"], ["ab"]]
+parts xs = foldr (concatMap ∘ extend) [[]] xs
+
+extend ∷ a → Partition a → [Partition a]
+extend x [] = [[[x]]]
+extend x p = [ [x]:p, glue x p]
+  where glue a (h:ss) = (a:h):ss

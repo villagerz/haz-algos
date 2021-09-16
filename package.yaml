@@ -20,6 +20,8 @@ extra-source-files:
 
 dependencies:
 - base-unicode-symbols
+- containers
+- sort
   
 default-extensions:
 - UnicodeSyntax
@@ -30,7 +32,6 @@ library:
   dependencies:
   - base
   - array
-  - containers
   source-dirs: library
 
 executables:
