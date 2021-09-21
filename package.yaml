@@ -32,6 +32,7 @@ library:
   dependencies:
   - base
   - array
+  - cmdargs
   source-dirs: library
 
 executables:

@@ -1,7 +1,12 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# OPTIONS_GHC -fno-cse #-}
+-- no-cse allows CmdArgs to ignore duplicate arguments
 -- | An example module.
 module HazAlgos where
 
-import           Prelude.Unicode ((∘), (≤), (⊥))
+import           Prelude.Unicode        ((∘), (≤), (⊥))
+import           System.Console.CmdArgs ((&=))
+import qualified System.Console.CmdArgs as Cli
 
 data Tree = Leaf Int
     | Fork Tree Tree
@@ -89,8 +94,21 @@ cost (Leaf x)   = x
 cost (Fork l r) = 1 + (cost l `max` cost r)
 
 
+data Compress = Bwt
+    { file :: String
+    }
+    | Ranktails
+    { val :: String
+    }
+    deriving (Show, Cli.Data, Cli.Typeable)
+
+bwt = Bwt {file = Cli.def
+                 &= Cli.typFile
+                 &= Cli.help "File to run BWT on"
+               }
+ranktails = Ranktails { val = "some string" &= Cli.args }
 
 
 
 main :: IO ()
-main = return ()
+main = print =<< Cli.cmdArgs ( Cli.modes [bwt, ranktails] &= (Cli.program "haz-algos"))
