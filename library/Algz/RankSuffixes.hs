@@ -9,12 +9,14 @@ tails xs = xs : tails (tail xs)
 
 -- | rank basic specification
 rank ∷ Ord a ⇒ [a] → [Int]
-rank = resort ∘ concat ∘ label ∘ psort ∘ zip [0..]
+rank xs = map (\x → length (filter ( < x) xs )) xs
+-- rank = resort ∘ concat ∘ label ∘ psort ∘ zip [0..]
 
 
 
 ranktails ∷ Ord a ⇒ [a] → [Int]
-ranktails = applyUntil isperm rerankings ∘ rank
+ranktails = rank ∘ tails
+-- ranktails = applyUntil isperm rerankings ∘ rank
 
 (<<) ∷  [Int] → [Int] → [Int]
 (<<) xs ys = rank (zip xs ys)
