@@ -69,6 +69,7 @@ tests:
     - base
     - haz-algos
     - hspec
+    - QuickCheck
     ghc-options:
     - -rtsopts
     - -threaded

@@ -1,6 +1,8 @@
+{-# LANGUAGE NoImplicitPrelude #-}
 module Algz.RankSuffixes where
 
 import           Data.Array
+import           Prelude         hiding (tails)
 import           Prelude.Unicode ((∘), (∨), (≡), (⊥))
 
 tails ∷ [a] → [[a]]
